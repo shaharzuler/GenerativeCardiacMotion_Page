@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights.">
-  <meta name="keywords" content="Optical flow, Scene flow, Deep neural networks, Cardiac cycle">
+        content="Conditional Variational Autoencoder for cardiac CT deformation generation">
+  <meta name="keywords" content="Optical flow, Scene flow, Deep neural networks, Cardiac cycle, Generative Models">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights.</title>
+  <title>Conditional Variational Autoencoder for cardiac CT deformation generation.</title>
 
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4GW49TD698"></script>
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GW49TD698"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-4GW49TD698');
-</script>
+</script> -->
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -43,8 +43,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights</h1>
-          <div class="is-size-5 publication-authors">
+          <h1 class="title is-1 publication-title">Conditional Variational Autoencoder for cardiac CT deformation generation.</h1>
+<!--           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://il.linkedin.com/in/shahar-zuler">Shahar Zuler</a><sup>1</sup>,</span>
             <span class="author-block">
@@ -57,9 +57,9 @@
             <div class="author-block" style="color: #555;"><sup>2</sup>Faculty of Medicine, Tel Aviv University, Ramat-Gan, Israel</div>
             <div class="author-block" style="color: #555;"><sup>3</sup>The Edmond J. Safra International Congenital Heart Center, Sheba Medical Center, Ramat-Gan, Israel</div>
             <div class="author-block" style="color: #555;"><sup>4</sup>The Engineering Medical Research Laboratory, Sheba Medical Center, Ramat-Gan, Israel</div>
-          </div>
+          </div> -->
 
-          <div class="is-size-3 publication-authors">
+<!--           <div class="is-size-3 publication-authors">
             <span class="author-block" style="color: #555;">MICCAI 2024</span>
           </div>
           <div class="column has-text-centered">
@@ -82,10 +82,10 @@
                 </span>
                 <span>arXiv</span>
             </a>
-        </span>
+        </span> -->
         <!-- Code Link. -->
         <span class="link-block">
-            <a href="https://github.com/shaharzuler/CardioSpectrum"
+            <a href="https://github.com/shaharzuler/CVAE"
                 class="external-link button is-normal is-rounded is-dark">
                 <span class="icon">
                     <i class="fab fa-github"></i>
@@ -94,7 +94,7 @@
             </a>
         </span>
     </div>
-    <div class="publication-links">
+<!--     <div class="publication-links">
         <!-- Dataset paper Link. -->
         <span class="link-block">
             <a href="https://arxiv.org/abs/2406.01040"
@@ -115,7 +115,7 @@
                 <span>Data Code</span>
             </a>
         </span>
-    </div>
+    </div> -->
 </div>
 
 
@@ -131,7 +131,7 @@
       <img id="teaser" src="./static/images/teaser3.png" alt="Teaser Image" style="width: 100%; height: auto;">
 
       <h2 class="subtitle has-text-centered">
-        CardioSpectrum effectively captures cardiac tangential movement (top), outperforming traditional methods that predominantly focus on local features, which often lead to inadequate results due to the aperture problem (bottom)
+        Teaser text here
       </h2>
     </div>
   </div>
@@ -145,15 +145,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            The ability to map left ventricle (LV) myocardial motion using computed tomography angiography (CTA) is essential to diagnosing cardiovascular conditions and guiding interventional procedures.
-            Due to their inherent locality, conventional neural networks typically have difficulty predicting subtle tangential movements, which considerably lessens the level of precision at which myocardium three-dimensional (3D) mapping can be performed.
-            Using 3D optical flow techniques and Functional Maps (FMs), we present a comprehensive approach to address this problem.
-            FMs are known for their capacity to capture global geometric features, thus providing a fuller understanding of 3D geometry.
-            As an alternative to traditional segmentation-based priors, we employ surface-based two-dimensional (2D) constraints derived from spectral correspondence methods.
-            Our 3D deep learning architecture, based on the ARFlow model, is optimized to handle complex 3D motion analysis tasks.
-            By incorporating FMs, we can capture the subtle tangential movements of the myocardium surface precisely, hence significantly improving the accuracy of 3D mapping of the myocardium.
-            The experimental results confirm the effectiveness of this method in enhancing myocardium motion analysis.
-            This approach can contribute to improving cardiovascular diagnosis and treatment.
+            Abstract text here.
           </p>
         </div>
       </div>
@@ -167,25 +159,17 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">How does it work?</h2>
+        <h2 class="title is-3">Second title here</h2>
         <div class="content has-text-justified">
           <p>
-            Mapping the movement of the LV myocardium accurately is vital in cardiac CT analysis.
-          However, it's challenging due to the need to capture precise tangential movements.
-          While traditional neural networks have made strides in analyzing cardiac movement, they often struggle with correctly predicting the tangential component, known as the aperture problem.
-          To tackle this, we propose a holistic approach.
-          We combine deep learning with spectral methods, specifically Functional Maps (FMs).
-          FMs offer a global perspective, helping us understand myocardium motion comprehensively.
-
-          CardioSpectrum method integrates 2D constraints derived from spectral correspondence methods, enhancing surface mapping accuracy.
+            more text here
 
           </p>
         </div>
         <div class="column is-centered has-text-centered">
-        <img src="static/images/archi2.drawio.png" alt='The NN analyzes 3D image pairs of cardiac cycle timesteps such as systole and diastole, incorporating 2D constraints from ZoomOut. These constraints, derived from segmentations converted into meshes, result in a 3D optical flow.'/>
+        <img src="static/images/archi2.drawio.png" alt='image text.'/>
         <p>
-          The neural network analyzes 3D image pairs of cardiac cycle timesteps such as systole and diastole, incorporating 2D constraints from <a href="https://arxiv.org/abs/1904.07865" style="color: blue; text-decoration: underline;">ZoomOut</a>.
-          These constraints, derived from segmentations converted into meshes, result in a 3D optical flow.
+          image description
         </p>
         </div>
       </div>
@@ -198,15 +182,14 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-<!--        <h2 class="title is-3">How does it work?</h2>-->
+<!--        <h2 class="title is-3">another title</h2>-->
         <div class="content has-text-justified">
           <p>
-            CardioSpectrum predicts more accurate deformation compared to the baselines as the torsion angle increases.
-            Plot demonstrates mEPE (mean End-point Error) across the myocardium region.
+            txt
           </p>
         </div>
         <div class="column is-centered has-text-centered">
-        <img src="static/images/general_shell_volume_error_actual_tot_torsion_3_clean.png" alt="TCardioSpectrum predicts more accurate deformation compared to the baselines as the torsion angle increases"/>
+        <img src="static/images/general_shell_volume_error_actual_tot_torsion_3_clean.png" alt="image description"/>
       </div>
       </div>
     </div>
@@ -214,7 +197,7 @@
 </section>
 
 
-<section class="section hero is-light">
+<!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -230,27 +213,12 @@
       </div>
     </div>
   </div>
-</section>
-
-
-<!-- <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-      @misc{zuler2024cardiospectrumcomprehensivemyocardiummotion,
-      title={CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights}, 
-      author={Shahar Zuler and Shai Tejman-Yarden and Dan Raviv},
-      year={2024},
-      eprint={2407.03794},
-      archivePrefix={arXiv},
-      primaryClass={eess.IV},
-      url={https://arxiv.org/abs/2407.03794}, 
-}
-    </code></pre>
-  </div>
 </section> -->
 
-  <section class="section" id="BibTeX">
+
+
+
+<!--   <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <p>If you find this work helpful, please cite our publication.</p>
@@ -269,7 +237,7 @@
     <h3>MICCAI 2024 proceedings:</h3>
     <p>COMING SOON</p>
   </div>
-</section>
+</section> -->
 
 
 <footer class="footer">
