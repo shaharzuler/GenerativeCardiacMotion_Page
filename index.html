@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights.">
+  <meta name="keywords" content="Optical flow, Scene flow, Deep neural networks, Cardiac cycle">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights.</title>
+
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4GW49TD698"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4GW49TD698');
+</script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/health-medical-healthcare-heart-svgrepo-com.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://il.linkedin.com/in/shahar-zuler">Shahar Zuler</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/shai-tejman-yarden-md-msc-mba-9162749/">Shai Tejman-Yarden</a><sup>2,3,4</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.raviv.sites.tau.ac.il/">Dan Raviv</a><sup>1</sup>,</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <div class="author-block" style="color: #555;"><sup>1</sup>Tel Aviv University, Tel-Aviv, Israel</div>
+            <div class="author-block" style="color: #555;"><sup>2</sup>Faculty of Medicine, Tel Aviv University, Ramat-Gan, Israel</div>
+            <div class="author-block" style="color: #555;"><sup>3</sup>The Edmond J. Safra International Congenital Heart Center, Sheba Medical Center, Ramat-Gan, Israel</div>
+            <div class="author-block" style="color: #555;"><sup>4</sup>The Engineering Medical Research Laboratory, Sheba Medical Center, Ramat-Gan, Israel</div>
+          </div>
+
+          <div class="is-size-3 publication-authors">
+            <span class="author-block" style="color: #555;">MICCAI 2024</span>
+          </div>
+          <div class="column has-text-centered">
+    <div class="publication-links">
+        <!-- PDF Link. -->
+        <span class="link-block">
+            <a href="SOON"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper-Soon</span>
+            </a>
+        </span>
+        <span class="link-block">
+            <a href="https://arxiv.org/abs/2407.03794"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+            </a>
+        </span>
+        <!-- Code Link. -->
+        <span class="link-block">
+            <a href="https://github.com/shaharzuler/CardioSpectrum"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+            </a>
+        </span>
+    </div>
+    <div class="publication-links">
+        <!-- Dataset paper Link. -->
+        <span class="link-block">
+            <a href="https://arxiv.org/abs/2406.01040"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="far fa-images"></i>
+                </span>
+                <span>Data Paper</span>
+            </a>
+        </span>
+        <!-- Dataset code Link. -->
+        <span class="link-block">
+            <a href="https://github.com/shaharzuler/cardio_volume_skewer"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="far fa-images"></i>
+                </span>
+                <span>Data Code</span>
+            </a>
+        </span>
+    </div>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" src="./static/images/teaser3.png" alt="Teaser Image" style="width: 100%; height: auto;">
+
+      <h2 class="subtitle has-text-centered">
+        CardioSpectrum effectively captures cardiac tangential movement (top), outperforming traditional methods that predominantly focus on local features, which often lead to inadequate results due to the aperture problem (bottom)
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The ability to map left ventricle (LV) myocardial motion using computed tomography angiography (CTA) is essential to diagnosing cardiovascular conditions and guiding interventional procedures.
+            Due to their inherent locality, conventional neural networks typically have difficulty predicting subtle tangential movements, which considerably lessens the level of precision at which myocardium three-dimensional (3D) mapping can be performed.
+            Using 3D optical flow techniques and Functional Maps (FMs), we present a comprehensive approach to address this problem.
+            FMs are known for their capacity to capture global geometric features, thus providing a fuller understanding of 3D geometry.
+            As an alternative to traditional segmentation-based priors, we employ surface-based two-dimensional (2D) constraints derived from spectral correspondence methods.
+            Our 3D deep learning architecture, based on the ARFlow model, is optimized to handle complex 3D motion analysis tasks.
+            By incorporating FMs, we can capture the subtle tangential movements of the myocardium surface precisely, hence significantly improving the accuracy of 3D mapping of the myocardium.
+            The experimental results confirm the effectiveness of this method in enhancing myocardium motion analysis.
+            This approach can contribute to improving cardiovascular diagnosis and treatment.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">How does it work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            Mapping the movement of the LV myocardium accurately is vital in cardiac CT analysis.
+          However, it's challenging due to the need to capture precise tangential movements.
+          While traditional neural networks have made strides in analyzing cardiac movement, they often struggle with correctly predicting the tangential component, known as the aperture problem.
+          To tackle this, we propose a holistic approach.
+          We combine deep learning with spectral methods, specifically Functional Maps (FMs).
+          FMs offer a global perspective, helping us understand myocardium motion comprehensively.
+
+          CardioSpectrum method integrates 2D constraints derived from spectral correspondence methods, enhancing surface mapping accuracy.
+
+          </p>
+        </div>
+        <div class="column is-centered has-text-centered">
+        <img src="static/images/archi2.drawio.png" alt='The NN analyzes 3D image pairs of cardiac cycle timesteps such as systole and diastole, incorporating 2D constraints from ZoomOut. These constraints, derived from segmentations converted into meshes, result in a 3D optical flow.'/>
+        <p>
+          The neural network analyzes 3D image pairs of cardiac cycle timesteps such as systole and diastole, incorporating 2D constraints from <a href="https://arxiv.org/abs/1904.07865" style="color: blue; text-decoration: underline;">ZoomOut</a>.
+          These constraints, derived from segmentations converted into meshes, result in a 3D optical flow.
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+<!--        <h2 class="title is-3">How does it work?</h2>-->
+        <div class="content has-text-justified">
+          <p>
+            CardioSpectrum predicts more accurate deformation compared to the baselines as the torsion angle increases.
+            Plot demonstrates mEPE (mean End-point Error) across the myocardium region.
+          </p>
+        </div>
+        <div class="column is-centered has-text-centered">
+        <img src="static/images/general_shell_volume_error_actual_tot_torsion_3_clean.png" alt="TCardioSpectrum predicts more accurate deformation compared to the baselines as the torsion angle increases"/>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+<!--        <h2 class="title is-3">How does it work?</h2>-->
+        <div class="content has-text-justified">
+          <p>
+          Our use of real case data with synthetic deformations enables comprehensive comparison against deformation ground truth.
+          </p>
+        </div>
+        <div class="column is-centered has-text-centered">
+        <img src="static/images/vid_thetas_60.0_-20.0_rs_0.9_0.9_h_0.91_linear_mask_True_blur_radious_1.gif" alt="Our use of real case data with synthetic deformations enables comprehensive comparison against deformation ground truth"/>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @misc{zuler2024cardiospectrumcomprehensivemyocardiummotion,
+      title={CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights}, 
+      author={Shahar Zuler and Shai Tejman-Yarden and Dan Raviv},
+      year={2024},
+      eprint={2407.03794},
+      archivePrefix={arXiv},
+      primaryClass={eess.IV},
+      url={https://arxiv.org/abs/2407.03794}, 
+}
+    </code></pre>
+  </div>
+</section> -->
+
+  <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <p>If you find this work helpful, please cite our publication.</p>
+    <h3>arXiv preprint:</h3>
+    <pre><code>
+@misc{zuler2024cardiospectrumcomprehensivemyocardiummotion,
+      title={CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights}, 
+      author={Shahar Zuler and Shai Tejman-Yarden and Dan Raviv},
+      year={2024},
+      eprint={2407.03794},
+      archivePrefix={arXiv},
+      primaryClass={eess.IV},
+      url={https://arxiv.org/abs/2407.03794}, 
+}
+    </code></pre>
+    <h3>MICCAI 2024 proceedings:</h3>
+    <p>COMING SOON</p>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+      <p>
+        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+      </p>
+    </div>
+  </div>
+</div>
+<!--</div>-->
+</footer>
+
+</body>
+</html>
