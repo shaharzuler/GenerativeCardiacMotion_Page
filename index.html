@@ -1,656 +1,405 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="Conditional Variational Autoencoder for cardiac CT deformation generation">
-  <meta name="keywords" content="Optical flow, Scene flow, Deep neural networks, Cardiac cycle, Generative Models">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Conditional Variational Autoencoder for cardiac CT deformation generation.</title>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="Synthetic Flow Field Generation for Myocardium Deformation Analysis.">
+    <meta name="keywords"
+          content="Synthetic data generation, myocardium deformation, 3D optical flow, conditional VAE, Deep neural networks">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Synthetic Flow Field Generation for Myocardium Deformation Analysis.</title>
 
 
-  <!-- Google tag (gtag.js) -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GW49TD698"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-4GW49TD698"></script>-->
+    <!--<script>-->
+    <!--  window.dataLayer = window.dataLayer || [];-->
+    <!--  function gtag(){dataLayer.push(arguments);}-->
+    <!--  gtag('js', new Date());-->
 
-  gtag('config', 'G-4GW49TD698');
-</script> -->
+    <!--  gtag('config', 'G-4GW49TD698');-->
+    <!--</script>-->
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/health-medical-healthcare-heart-svgrepo-com.svg">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.png">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
 </head>
 <body>
 
 <section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Conditional Variational Autoencoder for cardiac CT deformation generation.</h1>
-<!--           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://il.linkedin.com/in/shahar-zuler">Shahar Zuler</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://www.linkedin.com/in/shai-tejman-yarden-md-msc-mba-9162749/">Shai Tejman-Yarden</a><sup>2,3,4</sup>,</span>
-            <span class="author-block">
-              <a href="https://www.raviv.sites.tau.ac.il/">Dan Raviv</a><sup>1</sup>,</span>
-          </div>
-          <div class="is-size-6 publication-authors">
-            <div class="author-block" style="color: #555;"><sup>1</sup>Tel Aviv University, Tel-Aviv, Israel</div>
-            <div class="author-block" style="color: #555;"><sup>2</sup>Faculty of Medicine, Tel Aviv University, Ramat-Gan, Israel</div>
-            <div class="author-block" style="color: #555;"><sup>3</sup>The Edmond J. Safra International Congenital Heart Center, Sheba Medical Center, Ramat-Gan, Israel</div>
-            <div class="author-block" style="color: #555;"><sup>4</sup>The Engineering Medical Research Laboratory, Sheba Medical Center, Ramat-Gan, Israel</div>
-          </div> -->
-
-<!--           <div class="is-size-3 publication-authors">
-            <span class="author-block" style="color: #555;">MICCAI 2024</span>
-          </div>
-          <div class="column has-text-centered">
-    <div class="publication-links">
-        <!-- PDF Link. -->
-<!--         <span class="link-block"> -->
-<!--             <a href="SOON" -->
-<!--                 class="external-link button is-normal is-rounded is-dark"> -->
-<!--                 <span class="icon"> -->
-<!--                     <i class="fas fa-file-pdf"></i> -->
-<!--                 </span> -->
-<!--                 <span>Paper-Soon</span> -->
-<!--             </a> -->
-<!--         </span> -->
-<!--         <span class="link-block"> -->
-<!--             <a href="https://arxiv.org/abs/2407.03794" -->
-<!--                 class="external-link button is-normal is-rounded is-dark"> -->
-<!--                 <span class="icon"> -->
-<!--                     <i class="ai ai-arxiv"></i> -->
-<!--                 </span> -->
-<!--                 <span>arXiv</span> -->
-<!--             </a> -->
-<!--         </span> -->
-        <!-- Code Link. -->
-<!--         <span class="link-block"> -->
-<!--             <a href="https://github.com/shaharzuler/CVAE" -->
-<!--                 class="external-link button is-normal is-rounded is-dark"> -->
-<!--                 <span class="icon"> -->
-<!--                     <i class="fab fa-github"></i> -->
-<!--                 </span> -->
-<!--                 <span>Code</span> -->
-<!--             </a> -->
-<!--         </span> -->
-<!--     </div> -->
-<!--     <div class="publication-links">
-<!--         Dataset paper Link. -->
-<!--         <span class="link-block"> -->
-<!--             <a href="https://arxiv.org/abs/2406.01040" -->
-<!--                 class="external-link button is-normal is-rounded is-dark"> -->
-<!--                 <span class="icon"> -->
-<!--                     <i class="far fa-images"></i> -->
-<!--                 </span> -->
-<!--                 <span>Data Paper</span> -->
-<!--             </a> -->
-<!--         </span> -->
-        <!-- Dataset code Link. -->
-<!--         <span class="link-block"> -->
-<!--             <a href="https://github.com/shaharzuler/cardio_volume_skewer" -->
-<!--                 class="external-link button is-normal is-rounded is-dark"> -->
-<!--                 <span class="icon"> -->
-<!--                     <i class="far fa-images"></i> -->
-<!--                 </span> -->
-<!--                 <span>Data Code</span> -->
-<!--             </a> -->
-<!--         </span> -->
-<!--     </div> -->
-</div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- <section class="hero teaser">
-  <div class="container is-max-desktop">
     <div class="hero-body">
-      <img id="teaser" src="./static/images/teaser3.png" alt="Teaser Image" style="width: 100%; height: auto;">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">Synthetic Flow Field Generation for Myocardium Deformation
+                        Analysis.</h1>
+                    <div class="is-size-5 publication-authors">
+                        <div class="author-block">
+                            <p><a>Shahar Zuler</a></p>
+                        </div>
+                        <br>
+                        <div class="author-block">
+                            <p>Supervised by:</p>
+                        </div>
+                        <div class="author-block">
+                            <p><a>Gal Lifshitz</a> and <a>Dan Raviv</a></p>
+                        </div>
 
-      <h2 class="subtitle has-text-centered">
-        Teaser text here
-      </h2>
+
+                    </div>
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <span class="link-block">
+            <a href="report.pdf"
+               class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Report</span>
+            </a>
+        </span>
+                            <!-- Code Link. -->
+                            <span class="link-block">
+            <a href="https://github.com/shaharzuler/CVAE"
+               class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+            </a>
+        </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
-  </div>
-</section> -->
-
-
-
-
-  
-  
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    
-    <!-- Titles Row -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <h3 class="title is-8">Generated Animation</h3>
-      </div>
-      <div class="column is-one-third">
-        <h3 class="title is-8">CVAE GT</h3>
-      </div>
-      <div class="column is-one-third">
-        <h3 class="title is-8">Original Scan</h3>
-      </div>
-      <div class="column is-one-fifth">
-        <h3 class="title is-8">Generated Flow</h3>
-      </div>
-      <div class="column is-one-fifth">
-        <h3 class="title is-8">GT Flow</h3>
-      </div>
-      <div class="column is-one-fifth">
-        <h3 class="title is-8">Rule Based Sample</h3>
-      </div>
-    </div>
-    <!-- /Titles Row -->
-    
-    
-    <!-- 1 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated4.gif" alt="Generated Animation #4">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated4_gt.gif" alt="CVAE GT #4">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p5_match4.gif" alt="Original Scan #4">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/4_f_gen.png" alt="Predicted Flow #4">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/4_f_gt.png" alt="GT Flow #4">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased 4" alt="Rule Based Sample #4">
-        </figure>
-      </div>
-    </div>
-    <!-- /1 Row of Images -->
-    
-    <!-- 2 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated9.gif" alt="Generated Animation #9">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated9_gt.gif" alt="CVAE GT #9">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p11_match9.gif" alt="Original Scan #9">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/9_f_gen.png" alt="Predicted Flow #9">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/9_f_gt.png" alt="GT Flow #9">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="path_to_rule_based_sample_row1.png" alt="Rule Based Sample #9">
-        </figure>
-      </div>
-    </div>
-    <!-- /2 Row of Images -->
-
-    <!-- 3 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated11.gif" alt="Generated Animation #11">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated11_gt.gif" alt="CVAE GT #11">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p13_match11.gif" alt="Original Scan #11">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/11_f_gen.png" alt="Predicted Flow #11">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/11_f_gt.png" alt="GT Flow #11">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="path_to_rule_based_sample_row1.png" alt="Rule Based Sample #11">
-        </figure>
-      </div>
-    </div>
-    <!-- /3 Row of Images -->
-  
-    <!-- 4 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated42.gif" alt="Generated Animation #42">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated42_gt.gif" alt="CVAE GT #42">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation___match42.gif" alt="Original Scan #42">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/42_f_gen.png" alt="Predicted Flow #42">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/42_f_gt.png" alt="GT Flow #42">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/vid_thetas_60.0_-20.0_rs_0.9_0.9_h_0.91_linear_mask_True_blur_radious_1 (1).gif" alt="Rule Based Sample #42">
-        </figure>
-      </div>
-    </div>
-    <!-- /4 Row of Images -->
-
-    <!-- 5 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated41.gif" alt="Generated Animation #41">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated41_gt.gif" alt="CVAE GT #41">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p_55_match41.gif" alt="Original Scan #41">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/41_f_gen.png" alt="Predicted Flow #41">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/41_f_gt.png" alt="GT Flow #41">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased41.gif" alt="Rule Based Sample #41">
-        </figure>
-      </div>
-    </div>
-    <!-- /5 Row of Images -->
-
-
-    <!-- 6 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated39.gif" alt="Generated Animation #39">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated39_gt.gif" alt="CVAE GT #39">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p_53_match39.gif" alt="Original Scan #39">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/39_f_gen.png" alt="Predicted Flow #39">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/39_f_gt.png" alt="GT Flow #39">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased39.gif" alt="Rule Based Sample #39">
-        </figure>
-      </div>
-    </div>
-    <!-- /6 Row of Images -->
-
-    <!-- 7 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated38.gif" alt="Generated Animation #38">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated38_gt.gif" alt="CVAE GT #38">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p52_match38.gif" alt="Original Scan #38">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/38_f_gen.png" alt="Predicted Flow #38">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-128x128">
-          <img src="static/images/38_f_gt.png" alt="GT Flow #38">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased38.gif" alt="Rule Based Sample #38">
-        </figure>
-      </div>
-    </div>
-    <!-- /7 Row of Images -->
-
-
-
-    <!-- 8 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated32.gif" alt="Generated Animation #32">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated32_gt.gif" alt="CVAE GT #32">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p43_match32.gif" alt="Original Scan #32">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/32_f_gen.png" alt="Predicted Flow #32">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/32_f_gt.png" alt="GT Flow #32">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased32.gif" alt="Rule Based Sample #32">
-        </figure>
-      </div>
-    </div>
-    <!-- /8 Row of Images -->
-
-    <!-- 9 Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated31.gif" alt="Generated Animation #31">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated31_gt.gif" alt="CVAE GT #31">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p42_match31.gif" alt="Original Scan #31">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/31_f_gen.png" alt="Predicted Flow #31">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/31_f_gt.png" alt="GT Flow #31">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="static/images/path to rulebased31.gif" alt="Rule Based Sample #31">
-        </figure>
-      </div>
-    </div>
-    <!-- /9 Row of Images -->
-
-
-
-    
-
-
-
-    
-
-    
-<!-- last Row of Images -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated2.gif" alt="Generated Animation #2">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/generated2_gt.gif" alt="CVAE GT #2">
-        </figure>
-      </div>
-      <div class="column is-one-third">
-        <figure class="image is-384x384">
-          <img src="static/images/image_animation_mask_p3_match2.gif" alt="Original Scan #2">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/2_f_gen.png" alt="Predicted Flow #2">
-        </figure>
-      </div>
-      <div class="column is-one-sixth">
-        <figure class="image is-128x128">
-          <img src="static/images/2_f_gt.png" alt="GT Flow #2">
-        </figure>
-      </div>
-      <div class="column is-one-quarter">
-        <figure class="image is-384x384">
-          <img src="path_to_rule_based_sample_row1.png" alt="Rule Based Sample #2">
-        </figure>
-      </div>
-    </div>
-    <!-- /last Row of Images -->
     </div>
 </section>
 
-
-  
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+        <div class="hero-body">
+            <img id="teaser" src="./static/images/generated42.gif" alt="Generated Sequence of Myocardium Deformation"
+                 style="width: 100%; height: auto;">
+            <h2 class="subtitle has-text-centered">
+                This animation demonstrates a smooth transition generated by the Conditional Variational Autoencoder
+                (CVAE), showing the heart’s deformation from systole to diastole.
+                The frames are interpolated between two key states to visualize the motion.
+            </h2>
+        </div>
+    </div>
+</section>
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Abstract text here.
-          </p>
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        This project presents a method for generating synthetic 3D flow fields to warp real cardiac
+                        Computed
+                        Tomography (CT) frames, creating pairs of images with synthetic deformations that serve as
+                        ground
+                        truth annotations. A conditional Variational Autoencoder (CVAE) is employed to generate flow
+                        fields
+                        conditioned on a single CT frame, enabling the synthesis of realistic deformations for training
+                        and
+                        validating deep learning models in myocardium motion analysis.
+                        <br>
+                        The proposed method significantly reduces the dependency on manual annotations, which are
+                        practically infeasible for dense voxel-level deformation tasks.
+                        By providing synthetic annotations, this project lays the groundwork for the development of more
+                        complex myocardium motion models.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
+        <!--/ Abstract. -->
     </div>
-    <!--/ Abstract. -->
-  </div>
+</section>
+
+<section class="section hero is-light">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">How Does It Work?</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        The CVAE pipeline generates 3D flow fields conditioned on real cardiac CT frames.
+                        These flow fields warp systole frames into diastole frames, forming realistic annotated pairs of
+                        deformed heart images.
+                    </p>
+                    <img src="static/images/generation_pipeline.png" alt="Generation Pipeline">
+                    <p>
+                        <br>Estimated flow based on known methods serve as ground truth annotations for the CVAE.
+                    </p>
+                    <img src="static/images/training_pipeline.png" alt="Training Pipeline">
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
 <section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Second title here</h2>
-        <div class="content has-text-justified">
-          <p>
-            more text here
-
-          </p>
-        </div>
-        <div class="column is-centered has-text-centered">
-        <img src="static/images/archi2.drawio.png" alt='image text.'/>
+    <div class="has-text-centered">
+        <h2 class="title is-3">Comparison of Generated Heart Animations and Ground Truth Data</h2>
+    </div>
+    <!--    <h2 class="title is-3">Comparison of Generated Heart Animations and Ground Truth Data</h2>-->
+    <div class="container is-max-desktop">
         <p>
-          image description
+            <br>The following table showcases examples of the generated heart animations alongside their
+            corresponding ground truth data.
+            For each row, you will see a generated animation (systole to diastole transformation), the CVAE ground truth
+            (GT), the original CT scan, and visualizations of both the predicted and ground truth flow fields.
+            This allows for a clear comparison between the model's predictions and the actual deformations captured in
+            the original data.
         </p>
+        <br>
+        <!-- Titles Row -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-one-third">
+                <h3 class="title is-8" style="font-size: 1.5rem;">Generated Animation</h3>
+            </div>
+            <div class="column is-one-third">
+                <h3 class="title is-8" style="font-size: 1.5rem;">CVAE GT</h3>
+            </div>
+            <div class="column is-one-third">
+                <h3 class="title is-8" style="font-size: 1.5rem;">Original Scan</h3>
+            </div>
+            <div class="column is-one-fifth">
+                <h3 class="title is-8" style="font-size: 1.5rem;">Generated Flow</h3>
+            </div>
+            <div class="column is-one-fifth">
+                <h3 class="title is-8" style="font-size: 1.5rem;">GT Flow</h3>
+            </div>
         </div>
-      </div>
+        <!-- /Titles Row -->
+
+        <!-- Row 1 -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated4.gif" alt="Generated Animation #4">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated4_gt.gif" alt="CVAE GT #4">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/image_animation_mask_p5_match4.gif" alt="Original Scan #4">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/4_f_gen.png" alt="Generated Flow #4">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/4_f_gt.png" alt="GT Flow #4">
+                </figure>
+            </div>
+        </div>
+        <!-- /Row 1 -->
+
+        <!-- Row 2 -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated9.gif" alt="Generated Animation #9">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated9_gt.gif" alt="CVAE GT #9">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/image_animation_mask_p11_match9.gif" alt="Original Scan #9">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/9_f_gen.png" alt="Generated Flow #9">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/9_f_gt.png" alt="GT Flow #9">
+                </figure>
+            </div>
+        </div>
+        <!-- /Row 2 -->
+
+        <!-- Row 3 -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated31.gif" alt="Generated Animation #31">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated31_gt.gif" alt="CVAE GT #31">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/image_animation_mask_p42_match31.gif" alt="Original Scan #31">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/31_f_gen.png" alt="Generated Flow #31">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/31_f_gt.png" alt="GT Flow #31">
+                </figure>
+            </div>
+        </div>
+        <!-- /Row 3 -->
+
+        <!-- Row 4 -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated39.gif" alt="Generated Animation #39">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/generated39_gt.gif" alt="CVAE GT #39">
+                </figure>
+            </div>
+            <div class="column is-one-third">
+                <figure class="image is-384x384">
+                    <img src="static/images/image_animation_mask_p_53_match39.gif" alt="Original Scan #39">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/39_f_gen.png" alt="Generated Flow #39">
+                </figure>
+            </div>
+            <div class="column is-one-fifth">
+                <figure class="image is-128x128">
+                    <img src="static/images/39_f_gt.png" alt="GT Flow #39">
+                </figure>
+            </div>
+        </div>
+        <!-- /Row 4 -->
     </div>
-  </div>
 </section>
 
 
 <section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-<!--        <h2 class="title is-3">another title</h2>-->
-        <div class="content has-text-justified">
-          <p>
-            txt
-          </p>
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">CVAE Architecture</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        The architecture consists of several key components collaborating to produce these flow fields from a single conditioned CT frame.
+                    </p>
+                    <ul>
+                        <li>An encoder that reduces the flow field into a latent space representation.</li>
+                        <li>A decoder that reconstructs the flow field from the latent space, conditioned on the input
+                            CT frame.
+                        </li>
+                        <li>A feature pyramid network that extracts multi-scale features from the input CT frame.</li>
+                    </ul>
+                    <img src="static/images/archi_improved.png" alt="Training Pipeline">
+                </div>
+            </div>
         </div>
-        <div class="column is-centered has-text-centered">
-        <img src="static/images/general_shell_volume_error_actual_tot_torsion_3_clean.png" alt="image description"/>
-      </div>
-      </div>
     </div>
-  </div>
 </section>
 
 
-<!-- <section class="section hero is-light"> -->
-<!--   <div class="container is-max-desktop"> -->
-<!--     <div class="columns is-centered has-text-centered"> -->
-<!--       <div class="column is-four-fifths"> -->
-<!--        <h2 class="title is-3">How does it work?</h2> -->
-<!--         <div class="content has-text-justified"> -->
-<!--           <p> -->
-<!--           Our use of real case data with synthetic deformations enables comprehensive comparison against deformation ground truth. -->
-<!--           </p> -->
-<!--         </div> -->
-<!--         <div class="column is-centered has-text-centered"> -->
-<!--         <img src="static/images/vid_thetas_60.0_-20.0_rs_0.9_0.9_h_0.91_linear_mask_True_blur_radious_1.gif" alt="Our use of real case data with synthetic deformations enables comprehensive comparison against deformation ground truth"/> -->
-<!--       </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </section> -->
+<section class="section hero is-light">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Latent Space Exploration</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        The latent space was explored by conducting a grid search across different latent variables,
+                        visualizing the corresponding generated flow fields.
+                        The latent space appears continuous, with different deformations generated for the same
+                        conditioned frame.
+                        The deformed frames appear anatomically feasible.
+                        This exploration is visualized below.
+                    </p>
+                    <div class="columns is-centered">
+                        <div class="column is-four-fifths">
+                            <figure class="image">
+                                <img src="static/images/flow_dist_z_tight.png" alt="Flow Dist Z Axis">
+                            </figure>
+                        </div>
+                        <div class="column is-four-fifths">
+                            <figure class="image">
+                                <img src="static/images/output_large_gif_3_axes.gif" alt="Output Large GIF 3 Axes">
+                            </figure>
+                        </div>
+                    </div>
 
-
-
-
-<!--   <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <p>If you find this work helpful, please cite our publication.</p>
-    <h3>arXiv preprint:</h3>
-    <pre><code>
-@misc{zuler2024cardiospectrumcomprehensivemyocardiummotion,
-      title={CardioSpectrum: Comprehensive Myocardium Motion Analysis with 3D Deep Learning and Geometric Insights}, 
-      author={Shahar Zuler and Shai Tejman-Yarden and Dan Raviv},
-      year={2024},
-      eprint={2407.03794},
-      archivePrefix={arXiv},
-      primaryClass={eess.IV},
-      url={https://arxiv.org/abs/2407.03794}, 
-}
-    </code></pre>
-    <h3>MICCAI 2024 proceedings:</h3>
-    <p>COMING SOON</p>
-  </div>
-</section> -->
-
-
-<footer class="footer">
-  <div class="columns is-centered">
-    <div class="column is-8">
-      <div class="content">
-      <p>
-        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
-        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
-      </p>
+                    <div class="columns is-centered">
+                        <div class="column is-four-fifths">
+                            <figure class="image">
+                                <img src="static/images/flow_dist_z_tight_arrow.png" alt="Flow Dist Z Axis">
+                            </figure>
+                        </div>
+                        <div class="column is-four-fifths">
+                            <figure class="image">
+                                <video src="static/videos/change_in_flow.mp4" controls></video>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<!--</div>-->
+</section>
+<footer class="footer">
+    <div class="columns is-centered">
+        <div class="column is-8">
+            <div class="content">
+                <p>
+                    Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If
+                    you want to reuse their <a
+                        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them
+                    appropriately.
+                </p>
+            </div>
+        </div>
+    </div>
+
 </footer>
 
 </body>
