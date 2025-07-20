@@ -102,20 +102,12 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        This project presents a method for generating synthetic 3D flow fields to warp real cardiac
-                        Computed
-                        Tomography (CT) frames, creating pairs of images with synthetic deformations that serve as
-                        ground
-                        truth annotations. A Conditional Variational Autoencoder (CVAE) is employed to generate flow
-                        fields
-                        conditioned on a single CT frame, enabling the synthesis of realistic deformations for training
-                        and
-                        validating deep learning models in myocardium motion analysis.
+                        Accurate motion estimation in cardiac computed tomography (CT) imaging is critical for assessing cardiac function and surgical planning. Data-driven methods have become the standard approach for dense motion estimation, but they rely on vast amounts of labeled data with dense ground-truth (GT) motion annotations, which are often unfeasible to obtain.
+                        To address this limitation, we present a novel approach that synthesizes realistically looking pairs of cardiac CT frames enriched with dense 3D flow field annotations.
                         <br>
-                        The proposed method significantly reduces the dependency on manual annotations, which are
-                        practically infeasible for dense voxel-level deformation tasks.
-                        By providing synthetic annotations, this project lays the groundwork for the development of more
-                        complex myocardium motion models.
+                        Our method leverages a conditional Variational Autoencoder (CVAE), which incorporates a novel multi-scale feature conditioning mechanism and is trained to generate 3D flow fields conditioned on a single CT frame. By applying the generated flow field to warp the given frame, we create pairs of frames that simulate realistic myocardium deformations across the cardiac cycle. 
+                        These pairs serve as fully annotated data samples, providing optical flow GT annotations.
+                        Our data generation pipeline could enable the training and validation of more complex and accurate myocardium motion models, allowing for substantially reducing reliance on manual annotations.
                     </p>
                 </div>
             </div>
